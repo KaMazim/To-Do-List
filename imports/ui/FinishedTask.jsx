@@ -21,6 +21,10 @@ const TaskWrapper = styled.div`
     h3 {
         font-size: 17.5px;
         opacity: 0.6;
+        max-width: calc(100vw - 160px);
+        hyphens: auto;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     p {
@@ -38,7 +42,7 @@ export function FinishedTask(props) {
 
     return(
         <TaskWrapper>
-            <h3>{ documented_task.title }</h3>
+            <h3 lang="en">{ documented_task.title }</h3>
             <p>Completado em: { formatDate(date) } - { (date.getHours() < 10 ? `0${date.getHours()}` : date.getHours() ) + ':' + (date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes() )} </p>
         </TaskWrapper>
     );

@@ -161,7 +161,7 @@ export function TaskForm(props) {
                         type="text"
                         required
                         autoFocus
-                        maxLength="36" 
+                        maxLength="72" 
                         placeholder="Título da tarefa"
                         value={ formTitle }
                         onChange={ event => setFormTitle(event.target.value) }

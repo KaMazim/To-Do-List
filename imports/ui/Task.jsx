@@ -12,6 +12,8 @@ const TaskWrapper = styled.div`
     align-items: stretch;
     background-color: #F2F2F2;
     width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
 
     &:hover {
         background-color: #E0E0E0;
@@ -91,7 +93,7 @@ const TaskWrapper = styled.div`
 
     /*      Inner Task      */
     div.inner-task {
-
+        max-width: 100%;
         flex-grow: 1;
         display: flex;
         align-items: stretch;
@@ -101,14 +103,20 @@ const TaskWrapper = styled.div`
 
     div.title {
         display: flex;
-        flex-grow: 1;
         flex-direction: column;
         height: 100%;
         font-size: 15px;
         flex-wrap: wrap;
         justify-content: center;
         padding-block: 14px;
-
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+        max-width: calc(100vw - 250px);
+        h3 {
+            max-width: 100%;
+            hyphens: auto;
+        }
         p {
             font-size: 12px;
             font-weight: 700;
@@ -154,9 +162,6 @@ const TaskWrapper = styled.div`
         background-color: #C42021;
     
     }
-
-
-
     @media screen and (max-width: 400px) {
 
         div.buttons > button, label {
@@ -173,6 +178,7 @@ const TaskWrapper = styled.div`
 
         div.title {
             font-size: 13px;
+            max-width: calc(100vw - 170px);
         }
 
         div.checked {
@@ -211,7 +217,7 @@ export function Task(props) {
 
                 <div className="inner-task">
                     
-                    <div className="title">
+                    <div className="title" lang="en">
                         <h3>{ documented_task.title }</h3>
                         <p>{ documented_task.dueDate.split("-").reverse().join('-') }</p>
                     </div>

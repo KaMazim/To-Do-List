@@ -120,7 +120,6 @@ const FormWrapper = styled.div`
         
     }
 
-
     @media screen and (max-width: 400px) {
         button {
             padding: 12px;
@@ -177,7 +176,7 @@ export function AddTask() {
                             type="text"
                             required
                             autoFocus
-                            maxLength="36" 
+                            maxLength="72" 
                             placeholder="Título da tarefa"
                             value={ formTitle }
                             onChange={ event => setFormTitle(event.target.value) }
