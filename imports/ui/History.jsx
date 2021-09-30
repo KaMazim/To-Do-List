@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
-import { finishedTasks } from '../api/collections';
+import { tasks } from '../api/collections';
 import { FinishedTask } from './FinishedTask';
 import styled from 'styled-components';
 
@@ -33,7 +33,7 @@ const MessageWrapper = styled.p`
 `;
 
 export function History() {
-    let watched_collection = useTracker(() => finishedTasks.find({}, { sort: { completionDate: -1 } }).fetch());
+    let watched_collection = useTracker(() => tasks.find({finished: true}, { sort: { completionDate: -1 } }).fetch());
 
     return(
         <HistoryWrapper>

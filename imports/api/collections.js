@@ -6,8 +6,8 @@ tasks.schema = new SimpleSchema({
     title: {type: String},
     author: {type: String},
     creationDate: {type: Date},
+    finished: {type: Boolean},
     marked: {type: Boolean},
-    dueDate : {type: String, optional: true}
+    dueDate : {type: String, optional: true},
+    completionDate: {type: Date, optional: true},
 });
-
-export const finishedTasks = new Mongo.Collection('finished-tasks')

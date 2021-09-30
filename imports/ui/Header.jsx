@@ -87,7 +87,7 @@ const MessageWrapper = styled.div`
 export function Header() {
     let first_name = Meteor.user().profile.name.split(" ")[0];
 
-    let collection_size = useTracker(() => tasks.find().count());
+    let collection_size = useTracker(() => tasks.find({finished: false}).count());
     let message = "";
 
     switch(collection_size) {

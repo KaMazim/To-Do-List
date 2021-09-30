@@ -5,14 +5,14 @@ import "../imports/api/methods";
 Meteor.publish('TasksPublication', 
     function () {
     if (Meteor.user()) {
-        return tasks.find( { author: Meteor.userId() } );
+        return tasks.find( { author: Meteor.userId(), finished: false } );
     }
 });
 
 Meteor.publish('FinishedTasksPublication', 
     function () {
     if (Meteor.user()) {
-        return finishedTasks.find( { author: Meteor.userId() } );
+        return tasks.find( { author: Meteor.userId(), finished: true } );
     }
 });
 

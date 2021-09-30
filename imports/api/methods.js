@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { tasks, finishedTasks } from "./collections";
+import { tasks } from "./collections";
 
 Meteor.methods({
     'addTask' (task) {
@@ -35,12 +35,10 @@ Meteor.methods({
     'finishTask' (task) {
         if(this.userId === task.author) {
 
-            finishedTasks.insert(task);
-            finishedTasks.update(
+            tasks.update(
                 {_id: task._id},
-                { $set: { completionDate: new Date() } }
+                { $set: { finished: true, completionDate: new Date() } }
             );
-            tasks.remove(task._id);
         }
     },
 
@@ -54,19 +52,13 @@ Meteor.methods({
     },
 
     'deleteManyTasks'() {
-        /*
-        let marked_tasks = tasks.find({marked: true}).fetch();
-        marked_tasks.forEach(
-            task => tasks.remove(task._id)
-        );
-        */
        tasks.remove({marked: true});
     },
 
     'selectAllTasks' (mark_state) {
         
         if (this.userId) {
-            let user_tasks = tasks.find({author: this.userId}).fetch();
+            let user_tasks = tasks.find({author: this.userId, finished: false}).fetch();
 
             user_tasks.forEach(
                 task => tasks.update(

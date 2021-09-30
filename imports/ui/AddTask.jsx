@@ -156,6 +156,7 @@ export function AddTask() {
             title: formTitle.trim(),
             author: Meteor.userId(),
             creationDate: new Date(),
+            finished: false,
             marked: false,
             dueDate: formDate
         };
