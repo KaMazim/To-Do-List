@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -50,13 +50,14 @@ export function App() {
         
       } 
       else {
-        return [
-          <Route key="1" exact path="/login">
-            <Login />
-          </Route>, 
-          <Redirect key="2" to="/login" />
-        ];
-
+        return (
+          <Fragment>
+            <Route exact path="/login">
+              <Login />
+            </Route> 
+            <Redirect to="/login" />
+          </Fragment> 
+        );
       }
 
     }
