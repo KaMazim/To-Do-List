@@ -42,6 +42,16 @@ Meteor.methods({
         }
     },
 
+    'undoTask' (task) {
+        if(this.userId === task.author) {
+
+            tasks.update(
+                {_id: task._id},
+                { $set: { finished: false } }
+            );
+        }
+    },
+
     'markTask' (task, mark_state) {
         if(this.userId === task.author) {
             tasks.update(

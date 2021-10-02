@@ -34,7 +34,7 @@ const MessageWrapper = styled.p`
 
 export function TaskList(props) {
     let collection = props.collection;
-    let watched_collection = useTracker(() => collection.find({finished: false}).fetch());
+    let watched_collection = useTracker(() => collection.find( {finished: false}, { sort: { creationDate: -1 }} ).fetch());
 
     if (watched_collection.length > 0) {
         return(
