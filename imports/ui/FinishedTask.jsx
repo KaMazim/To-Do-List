@@ -30,11 +30,15 @@ const TaskWrapper = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding-block: 14px;
 
         h3 {
             font-size: 17.5px;
             opacity: 0.6;
-            max-width: calc(100vw - 86px);
+            max-width: calc(100vw - 100px);
+            @media screen and (min-width: 1024px) {
+                max-width: calc(1024px - 100px);
+            }
             hyphens: auto;
             overflow-wrap: break-word;
             word-wrap: break-word;

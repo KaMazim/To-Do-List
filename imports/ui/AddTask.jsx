@@ -177,7 +177,7 @@ export function AddTask() {
                             type="text"
                             required
                             autoFocus
-                            maxLength="72" 
+                            maxLength="96" 
                             placeholder="Título da tarefa"
                             value={ formTitle }
                             onChange={ event => setFormTitle(event.target.value) }

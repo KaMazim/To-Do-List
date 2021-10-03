@@ -38,24 +38,24 @@ const TaskWrapper = styled.div`
         height: 24px;
         font-size: 0px;
         border: 2px solid rgba(25, 25, 25, 0.5); border-radius: 50%;
-    }
-    
-    label > div.mark-as-done > svg {
-        transition: all 0.05s;
-    }
+
+        svg {
+            transition: all 0.05s;
+
+            path {
+                display: none;
+            }
+        }
+    } 
     
     label:hover > div.mark-as-done {
         border-color: #f2f2f2;
         font-size: 14px;
-    }
-    
-    label > div.mark-as-done > svg > path {
-        display: none;
-    }
 
-    label:hover > div.mark-as-done > svg > path {
-        fill: #f2f2f2;
-        display: flex;
+        svg > path {
+            fill: #f2f2f2;
+            display: flex;
+        }
     }
     
     input[type="radio"], input[type="checkbox"] {
@@ -101,29 +101,6 @@ const TaskWrapper = styled.div`
         border-bottom: rgba(25, 25, 25, 0.1) solid 1px;
     }
 
-    div.title {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        font-size: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding-block: 14px;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-        max-width: calc(100vw - 250px);
-        h3 {
-            max-width: 100%;
-            hyphens: auto;
-        }
-        p {
-            font-size: 12px;
-            font-weight: 700;
-            color: #707070;
-        }
-    }
-
     label:hover ~ div.inner-task{
         padding-left: 18px;
     }
@@ -133,38 +110,10 @@ const TaskWrapper = styled.div`
     }
 
 
-    /*      Buttons      */
-    div.buttons {
-        display: flex;
-    }
     
-    div.buttons > button {
-        display: flex;
-        border: none;
-        padding: 20px;
-        font-size: 20px;
-        align-items: center;
-    }
-    
-    div.buttons > button > svg > path {
-        fill: rgba(25, 25, 25, 0.8);
-    }
-    
-    div.buttons > button:hover > svg > path {
-        fill: #F2F2F2;
-    }
-    
-    button.editar:hover {
-        background-color: #191919;
-    }
-    
-    button.excluir:hover {
-        background-color: #C42021;
-    
-    }
     @media screen and (max-width: 400px) {
 
-        div.buttons > button, label {
+        button, label {
             padding: 12px;
             font-size: 18px;
         }
@@ -176,15 +125,88 @@ const TaskWrapper = styled.div`
             font-size: 12px;
         }
 
-        div.title {
-            font-size: 13px;
-            max-width: calc(100vw - 170px);
-        }
-
         div.checked {
             width: 14px;
             height: 14px;
         }
+    }
+`;
+
+const TitleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-size: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-block: 14px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+
+    //Variables
+    --title-width: 100vw;
+    --width-compensation: 260px;
+
+    max-width: calc(var(--title-width) - var(--width-compensation));
+
+    h3 {
+        max-width: 100%;
+        hyphens: auto;
+    }
+    p {
+        font-size: 12px;
+        font-weight: 700;
+        color: #707070;
+    }
+
+    /* Screen Adjustments */
+    @media screen and (min-width: 1024px) {
+        --title-width: 1024px;
+    }
+    @media screen and (max-width: 400px) {
+        font-size: 13px;
+        --width-compensation: 200px;
+    }
+`;
+
+const ButtonsWrapper = styled.div`
+    display: flex;
+    
+    button {
+        display: flex;
+        border: none;
+        padding: 20px;
+        font-size: 20px;
+        align-items: center;
+
+        svg > path {
+            fill: rgba(25, 25, 25, 0.8);
+        }
+
+    }
+    
+    button:hover > svg > path {
+        fill: #F2F2F2;
+    }
+    
+    button.editar:hover {
+        background-color: #191919;
+    }
+    
+    button.excluir:hover {
+        background-color: #C42021;
+    }
+
+
+    /* Screen Adjustments */
+    @media screen and (max-width: 400px) {
+
+        button {
+            padding: 12px;
+            font-size: 18px;
+        }
+
     }
 `;
 
@@ -217,19 +239,19 @@ export function Task(props) {
 
                 <div className="inner-task">
                     
-                    <div className="title" lang="en">
-                        <h3>{ documented_task.title }</h3>
+                    <TitleWrapper>
+                        <h3 lang="en">{ documented_task.title }</h3>
                         <p>{ documented_task.dueDate.split("-").reverse().join('-') }</p>
-                    </div>
+                    </TitleWrapper>
 
-                    <div className="buttons">
+                    <ButtonsWrapper>
                         <button className="editar" title="Editar" onClick={() => setEditable(true)}>
                             <FontAwesomeIcon icon={faPen} />
                         </button>
                         <button className="excluir" title="Excluir" onClick={ () =>  Meteor.call('deleteTask', documented_task) }>
                             <FontAwesomeIcon icon={faTimesCircle} />
                         </button>
-                    </div>
+                    </ButtonsWrapper>
 
                 </div>
             </TaskWrapper>
