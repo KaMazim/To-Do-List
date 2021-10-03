@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 Meteor.subscribe('Tasks Publication');
 
@@ -112,6 +113,48 @@ const Wrapper = styled.main`
     div.many-selections:hover {
         background-color: #E0E0E0;
     }
+    label {
+        display: flex;
+        align-items: center;
+        padding: 18px;
+    }
+
+    label > div.mark-as-done {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 24px;
+        height: 24px;
+        font-size: 0px;
+        border: 2px solid rgba(25, 25, 25, 0.5); border-radius: 50%;
+
+        svg {
+            transition: all 0.05s;
+        }
+
+        svg > path {
+            display: none;
+        }
+    }
+    
+    label:hover > div.mark-as-done {
+        border-color: #f2f2f2;
+        font-size: 14px;
+    }
+
+    label:hover > div.mark-as-done > svg > path {
+        fill: #f2f2f2;
+        display: flex;
+    }
+    
+    input[type="radio"], input[type="checkbox"] {
+        display: none;
+    }
+
+    label.mark_many_as_done:hover {
+        background-color: #007EA7;
+    }
 `;
 
 export function Home() {
@@ -131,6 +174,12 @@ export function Home() {
                 <div className="options">
                     <input id="selector" type="checkbox" onChange={ selectAll } />
                     <label title={ markAll + " tudo"} className="check" htmlFor="selector"> <div className="checked"> <div className="inner-checked"></div> </div> </label>
+                    <input type="radio" id="mark_many_as_done" onClick={ () => Meteor.call('finishManyTasks') }/>
+                    <label title="Marcar selecionados como feito" className="mark_many_as_done"  htmlFor="mark_many_as_done">
+                        <div className="mark-as-done">
+                            <FontAwesomeIcon icon={faCheck} />
+                        </div>
+                    </label>
                     <button title="Excluir selecionados" className="excluir" onClick={ () => Meteor.call('deleteManyTasks') }><FontAwesomeIcon icon={faTimesCircle} /></button>
                 </div>
             );

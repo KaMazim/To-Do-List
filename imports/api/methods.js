@@ -37,7 +37,7 @@ Meteor.methods({
 
             tasks.update(
                 {_id: task._id},
-                { $set: { finished: true, completionDate: new Date() } }
+                { $set: { finished: true, marked: false, completionDate: new Date() } }
             );
         }
     },
@@ -61,6 +61,18 @@ Meteor.methods({
         }
     },
 
+    'finishManyTasks' () {
+        if(this.userId) {
+            let user_tasks = tasks.find({author: this.userId, finished: false}).fetch();
+            user_tasks.forEach(
+                task => tasks.update(
+                    { _id: task._id, marked: true },
+                    { $set: {finished: true, marked: false, completionDate: new Date()} }
+                )
+            );
+        }
+    },
+
     'deleteManyTasks'() {
        tasks.remove({marked: true});
     },
@@ -69,7 +81,6 @@ Meteor.methods({
         
         if (this.userId) {
             let user_tasks = tasks.find({author: this.userId, finished: false}).fetch();
-
             user_tasks.forEach(
                 task => tasks.update(
                     { _id: task._id },
