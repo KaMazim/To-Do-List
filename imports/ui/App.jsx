@@ -8,6 +8,8 @@ import { ProtectedContent } from './ProtectedContent.jsx';
 import { LoadingPage } from './LoadingPage.jsx';
 import { createGlobalStyle } from 'styled-components';
 
+// Comentario Teste
+
 const GlobalStyle = createGlobalStyle`
     *, *::after {
       margin: 0; padding: 0;
